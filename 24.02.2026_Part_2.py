@@ -63,7 +63,7 @@ while True:
             cv2.rectangle(image, (int(box_x), int(box_y)), (int(box_width), int(box_height)), (23, 230, 210), thickness = 1)
             
             # Put some text on the bounding box
-            cv2.putText(image, class_name, (int(box_x), int(box_y+.05*image_height)), cv2.FONT_HERSHEY_SIMPLEX, (.005*image_width), (0, 0, 255))
+            cv2.putText(image, class_name, (int(box_x), int(box_y + .05 * image_height)), cv2.FONT_HERSHEY_SIMPLEX, (.005 * image_width), (0, 0, 255))
 
     cv2.imshow('image', image)
     key = cv2.waitKey(1)
