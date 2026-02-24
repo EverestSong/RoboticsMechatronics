@@ -50,7 +50,7 @@ while True:
 
     for detection in output[0, 0, :, :]:
         confidence = detection[2]
-        if confidence > 0.8: #This is our confidence threshold
+        if confidence > 0.8: # This is our confidence threshold
             class_id = detection[1] # This is the ID of what it thinks it is
             class_name = id_class_name(class_id, classNames) # Returning the name from Dictionary
             print( str( str(class_id) + " " + str(detection[2])  + " " + class_name ) )
