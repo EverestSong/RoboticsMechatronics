@@ -92,7 +92,6 @@ while True:
     dst = cv2.Canny(image, 50, 200, None, 3)
 
     cdst = cv2.cvtColor(dst, cv2.COLOR_GRAY2BGR)
-    cdstP = np.copy(cdst)
 
     lines = cv2.HoughLines(dst, 1, np.pi / 180, 150, None, 0, 0)
 
