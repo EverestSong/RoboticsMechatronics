@@ -72,39 +72,52 @@ while True:
             # Put some text on the bounding box
             cv2.putText(image,class_name ,(int(box_x), int(box_y+.05*image_height)),cv2.FONT_HERSHEY_SIMPLEX,(.005*image_width),(0, 0, 255))
 
-    # Resize
+    # Resize. The function is cv2.resize(image, size).
     image = cv2.resize(image, (640, 480))
 
-    # Greyscale
+    # Grayscale. The function is cv2.cvtColor(image, flag).
     image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-    # Blur
+    # GaussianBlur. The function is cv2.GaussianBlur(image, kernalSize, sigmaX).
     image = cv2.GaussianBlur(image, (5, 5), 0)
 
-    # Canny
+    # Canny. The function is cv2.Canny(image, threshold1, threshold2).
     image = cv2.Canny(image, 30,200)
 
+    # drawContours. The function is cv2.drawCountours(image, contours, contourIdx, color, thickness).
     contours, hierarchy = cv2.findContours(image, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
     image = cv2.cvtColor(image, cv2.COLOR_GRAY2BGR)
     cv2.drawContours(image, contours, -1, (255,0,0),2)
 
     # Hough
+    # Detect edges by applying Canny.
     dst = cv2.Canny(image, 50, 200, None, 3)
 
+    # Convert to colour
     cdst = cv2.cvtColor(dst, cv2.COLOR_GRAY2BGR)
 
+    # cv2.HoughLines(edges, rho, theta, threshold, min_theta, max_theta)
     lines = cv2.HoughLines(dst, 1, np.pi / 180, 150, None, 0, 0)
 
     if lines is not None:
         for i in range(0, len(lines)):
+            # rho is the perpendicular distance. theta is the angle of the vector.
             rho = lines[i][0][0]
             theta = lines[i][0][1]
+
+            # Compute the sine and cosine of the angle.
             a = math.cos(theta)
             b = math.sin(theta)
+
+            # Find the coordinates.
             x0 = a * rho
             y0 = b * rho
+
+            # Extend the line in both directions.
             pt1 = (int(x0 + 1000*(-b)), int(y0 + 1000*(a)))
             pt2 = (int(x0 - 1000*(-b)), int(y0 - 1000*(a)))
+
+            # Draw the line.
             cv2.line(cdst, pt1, pt2, (0,0,255), 3, cv2.LINE_AA)
 
     cv2.imshow("Detected Lines (in red) - Standard Hough Line Transform", cdst)
