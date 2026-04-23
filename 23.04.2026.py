@@ -34,7 +34,10 @@ def execution_path(filename):
 # Loading model
 model = cv2.dnn.readNetFromTensorflow(execution_path('models/frozen_inference_graph.pb'), execution_path('models/ssd_mobilenet_v2_coco_2018_03_29.pbtxt'))
 
-cam = cv2.VideoCapture(0)
+cam = cv2.VideoCapture(0, cv2.CAP_V4L2)
+cam.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+cam.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+cam.set(cv2.CAP_PROP_FPS, 30)
 
 while True:
     width = 640
@@ -72,7 +75,7 @@ while True:
             cv2.putText(image,class_name ,(int(box_x), int(box_y+.05*image_height)),cv2.FONT_HERSHEY_SIMPLEX,(.005*image_width),(0, 0, 255))
 
     # cv2.resize(image, size) changes the size of an image.
-    image = cv2.resize(image, (width, height))
+    #image = cv2.resize(image, (width, height))
 
     # cv2.cvtColor(image, flag) transforms an image from one color space to another.
     image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
