@@ -108,7 +108,7 @@ while True:
             cv2.line(cdstP, (x1, y1), (x2, y2), (0, 0, 255), 3, cv2.LINE_AA)  
 
             # Gradient
-            if (l[2] - l[0]) != 0: 
+            if (x2 - x1) != 0: 
                 m = int((y2 - y1)/(x2 - x1))
 
             # Midpoints
