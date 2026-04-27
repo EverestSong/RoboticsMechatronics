@@ -109,7 +109,7 @@ while True:
 
             # Gradient
             if (l[2] - l[0]) != 0: 
-                m = int(((y2 - y1)/(x2 - x1))*100)
+                m = int((y2 - y1)/(x2 - x1))
 
             # Midpoints
             Cx = int((x1 + x2)/2)
