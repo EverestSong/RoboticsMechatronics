@@ -1,4 +1,3 @@
-
 int correction = 0;
 
 void setup() {
